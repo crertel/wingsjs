@@ -1,0 +1,22 @@
+{
+  "name": "wingsjs",
+  "version": "0.0.1",
+  "description": "Sim server for the Onizuka project",
+  "main": "wings.js",
+  "dependencies": {
+    "express": "~3.4.8",
+    "connect": "~2.12.0",
+    "lodash": "~2.4.1",
+    "log4js": "~0.6.9"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/crertel/wingsjs.git"
+  },
+  "author": "Chris Ertel",
+  "license": "BSD"
+}
