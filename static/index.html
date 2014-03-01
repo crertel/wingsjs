@@ -1,0 +1,100 @@
+<html>
+    <head>
+        <title>WingsJS</title>
+        
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="css/foundation.css" />
+        <script src="js/vendor/modernizr.js"></script>
+
+        <link rel="stylesheet" href="./css/main.css"/>
+
+        <script src="js/three.min.js"></script>
+        <script src="js/WingsControls.js"></script>
+
+
+        <script src="js/gl-matrix-min.js"></script>
+    </head>
+    <body>
+        <div class="wjs-toolbar">
+            <div class="row">
+                <div class="small-4 medium-4 large-4 columns">
+                    .
+                </div>
+                <div class="small-4 medium-4 large-4 columns">
+                    <div class="wjs-select-modes">
+                    <div class="wjs-select-mode">
+                        <img src="img/box_vert.png">
+                    </div>
+                    <div class="wjs-select-mode">
+                        <img src="img/box_edge.png">
+                    </div>
+                    <div class="wjs-select-mode">
+                        <img src="img/box_face.png">
+                    </div>
+                    <div class="wjs-select-mode">
+                        <img src="img/box_all.png">
+                    </div>
+                </div>
+                </div>
+                <div class="small-4 medium-4 large-4 columns">
+                    .
+                </div>
+            </div>
+        </div> 
+        <div class="wjs-workspace" id="theWorkspace">
+        </div>
+        <script>
+            var camera, scene, renderer;
+            var geometry, material, mesh;
+            var refgrid;
+            var controls;
+            var container = document.getElementById("theWorkspace");
+
+            init();
+            render();
+
+
+            function render() {
+                renderer.render( scene, camera );
+            }        
+
+            function init() {
+                
+                camera = new THREE.PerspectiveCamera( 90, container.clientWidth / container.clientHeight, 1, 10000 );                
+                camera.position.z =500;
+                controls = new THREE.OrbitControls( camera, container );
+                controls.addEventListener( 'change', render);
+
+                scene = new THREE.Scene();
+        
+                refgrid  = new THREE.GridHelper( 1000, 100 );
+                scene.add(refgrid);
+
+                geometry = new THREE.BoxGeometry( 200, 200, 200 );
+                material = new THREE.MeshBasicMaterial( { color: 0xff0000, wireframe: false } );
+                mesh = new THREE.Mesh( geometry, material );
+                scene.add( mesh );
+
+                renderer = new THREE.CanvasRenderer();
+                container.appendChild(renderer.domElement);
+                renderer.setSize( container.clientWidth, container.clientHeight);
+                renderer.setClearColor("#ccc");
+                window.addEventListener( 'resize', onWindowResize, false );
+            }
+            
+            function onWindowResize() {            
+                var h,w;
+                w = container.clientWidth;
+                h = container.clientHeight;
+                console.log("Resizing to ", w, " " ,h);
+                camera.aspect = w/h;
+                camera.updateProjectionMatrix();
+        
+                renderer.setSize( w,h);
+                render();
+            }
+
+        </script>
+    </body>
+</html>
