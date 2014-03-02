@@ -218,12 +218,15 @@ THREE.OrbitControls = function ( object, domElement ) {
 				state = STATE.ROTATE;
 				scope.domElement.addEventListener( 'mousemove', onMouseMove, false );
 				scope.domElement.removeEventListener( 'mouseup', onMouseUp, false );
+				 scope.domElement.requestPointerLock();
+
 			} 
 		} else if (state == STATE.ROTATE) {
 				scope.domElement.removeEventListener( 'mouseup', onMouseUp, false );
 				scope.domElement.removeEventListener( 'mousemove', onMouseMove, false );
 				scope.domElement.style.cursor = "";
 				state = STATE.NONE;
+				scope.domElement.exitPointerLock();
 		}
 		scope.dispatchEvent( endEvent );
 	}
